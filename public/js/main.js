@@ -1,3 +1,4 @@
+
 /**
  * DSE Analysis Site - Main JavaScript
  * Handles dashboard data loading and UI interactions
@@ -5,22 +6,23 @@
 
 // Load dashboard data
 async function loadDashboard() {
+    console.log('Starting dashboard load...');
     try {
         // Load performance data
         const performanceResponse = await fetch('/api/performance');
+        if (!performanceResponse.ok) {
+            throw new Error(`Performance API failed: ${performanceResponse.status}`);
+        }
         const performance = await performanceResponse.json();
+        console.log('Performance data loaded:', performance.success);
 
         // Load insights
         const insightsResponse = await fetch('/api/insights');
+        if (!insightsResponse.ok) {
+            throw new Error(`Insights API failed: ${insightsResponse.status}`);
+        }
         const insights = await insightsResponse.json();
-
-        // Load search statistics
-        const statsResponse = await fetch('/api/statistics');
-        const stats = await statsResponse.json();
-
-        // Calculate total candidates (use core subjects since all candidates take them)
-        const coreSubject = performance.data.find(subject => subject.subject_code === 'CHIN');
-        const totalCandidates = coreSubject ? coreSubject.total_candidates : 48542;
+        console.log('Insights data loaded:', insights.success, 'Items:', insights.data?.length);
 
         // Find top performing subject (highest distinction rate)
         const topSubject = performance.data.reduce((top, subject) => {
@@ -30,24 +32,49 @@ async function loadDashboard() {
             return rate > topRate ? subject : top;
         });
 
+        // Get total candidates from insights (55,781 across all categories)
+        const totalCandidatesInsight = insights.data.find(insight =>
+            insight.title.includes('Total DSE Candidates')
+        );
+        const totalCandidates = totalCandidatesInsight ? totalCandidatesInsight.value : 55781;
+
         // Update dashboard metrics
         updateElement('totalCandidates', totalCandidates.toLocaleString());
         updateElement('passRate', '85.4%');
         updateElement('topSubject', topSubject.subject_name.split(' ')[0]);
-        updateElement('searchInterest', stats.data[0]?.search_interest || 'N/A');
         updateElement('genderSplit', '51.2%');
-        updateElement('stemGrowth', '+3.2%');
 
         // Update insights grid
         const insightsGrid = document.getElementById('insightsGrid');
-        if (insightsGrid) {
-            insightsGrid.innerHTML = insights.data.map(insight => `
-                <div class="insight-card">
-                    <h4>${insight.title}</h4>
-                    <div class="insight-value">${insight.value}${insight.insight_type === 'performance' ? '%' : ''}</div>
-                    <p>${insight.description}</p>
-                </div>
-            `).join('');
+        console.log('InsightsGrid element found:', !!insightsGrid);
+        if (insightsGrid && insights && insights.success && insights.data) {
+            console.log('Loading insights:', insights.data.length, 'items');
+            insightsGrid.innerHTML = insights.data.map(insight => {
+                // Format the value properly based on insight type
+                let displayValue = insight.value;
+                if (insight.insight_type === 'performance' && insight.value < 100) {
+                    displayValue = insight.value + '%';
+                } else if (insight.insight_type === 'registration' && insight.title.includes('Rate')) {
+                    displayValue = insight.value + '%';
+                } else if (insight.value > 1000) {
+                    displayValue = insight.value.toLocaleString();
+                } else {
+                    displayValue = insight.value;
+                }
+
+                return `
+                    <div class="insight-card">
+                        <h4>${insight.title}</h4>
+                        <div class="insight-value">${displayValue}</div>
+                        <p>${insight.description}</p>
+                    </div>
+                `;
+            }).join('');
+        } else {
+            console.error('Failed to load insights:', insights);
+            if (insightsGrid) {
+                insightsGrid.innerHTML = '<div class="error">Failed to load insights</div>';
+            }
         }
 
     } catch (error) {
@@ -92,8 +119,14 @@ function showError(message) {
 
 // Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking for dashboard elements...');
+    const hasTotalCandidates = !!document.getElementById('totalCandidates');
+    const hasInsightsGrid = !!document.getElementById('insightsGrid');
+    console.log('Has totalCandidates:', hasTotalCandidates, 'Has insightsGrid:', hasInsightsGrid);
+
     // Only load dashboard data if we're on a page that needs it
-    if (document.getElementById('totalCandidates') || document.getElementById('insightsGrid')) {
+    if (hasTotalCandidates || hasInsightsGrid) {
+        console.log('Loading dashboard...');
         loadDashboard();
     }
 });

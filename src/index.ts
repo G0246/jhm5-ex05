@@ -83,12 +83,8 @@ export default {
                 return serveStaticFile('/subjects.html');
             case '/data':
                 return handleDataPage(env);
-            case '/api/statistics':
-                return handleStatistics(env);
             case '/api/insights':
                 return handleInsights(env);
-            case '/api/analysis':
-                return handleAnalysis(env);
             case '/api/performance':
                 return handlePerformance(env);
             case '/api/registration':
@@ -136,7 +132,7 @@ function getStaticFiles(): Record<string, { content: string; contentType: string
     <div class="container">
         <div class="header">
             <h1>🎓 DSE Analysis Dashboard</h1>
-            <p>Hong Kong Diploma of Secondary Education - Analytics & Performance</p>
+            <p>Hong Kong Diploma of Secondary Education - Performance & Statistics</p>
         </div>
 
         <div class="nav-links">
@@ -144,14 +140,13 @@ function getStaticFiles(): Record<string, { content: string; contentType: string
             <a href="/performance" class="nav-link">Performance</a>
             <a href="/subjects" class="nav-link">Subjects</a>
             <a href="/data" class="nav-link">Raw Data</a>
-            <a href="/api/statistics" class="nav-link">API Stats</a>
         </div>
 
         <div class="dashboard">
             <div class="card">
                 <h3>🎓 Total DSE Candidates</h3>
                 <div class="metric" id="totalCandidates">Loading...</div>
-                <p>2025 registered candidates</p>
+                <p>2025 registered candidates (all categories)</p>
             </div>
             <div class="card">
                 <h3>📊 Overall Pass Rate</h3>
@@ -164,19 +159,9 @@ function getStaticFiles(): Record<string, { content: string; contentType: string
                 <p>Highest distinction rate</p>
             </div>
             <div class="card">
-                <h3>📈 Search Interest</h3>
-                <div class="metric" id="searchInterest">Loading...</div>
-                <p>Current trend analysis</p>
-            </div>
-            <div class="card">
                 <h3>👥 Gender Distribution</h3>
                 <div class="metric" id="genderSplit">Loading...</div>
                 <p>Female participation rate</p>
-            </div>
-            <div class="card">
-                <h3>🔬 STEM Performance</h3>
-                <div class="metric" id="stemGrowth">Loading...</div>
-                <p>Science subjects growth</p>
             </div>
         </div>
 
@@ -297,51 +282,135 @@ body {
         },
         'js/main.js': {
             content: `// DSE Analysis Site - Main JavaScript
-async function loadDashboard() {
-    try {
-        const [performanceRes, insightsRes, statsRes] = await Promise.all([
-            fetch('/api/performance'),
-            fetch('/api/insights'),
-            fetch('/api/statistics')
-        ]);
+console.log('JavaScript file loaded');
 
-        const [performance, insights, stats] = await Promise.all([
-            performanceRes.json(),
-            insightsRes.json(),
-            statsRes.json()
-        ]);
-
-        const coreSubject = performance.data.find(s => s.subject_code === 'CHIN');
-        const totalCandidates = coreSubject ? coreSubject.total_candidates : 48542;
-
-        const topSubject = performance.data.reduce((top, subject) => {
-            const rate = (subject.level_5_star_star + subject.level_5_star + subject.level_5) / subject.total_candidates * 100;
-            const topRate = (top.level_5_star_star + top.level_5_star + top.level_5) / top.total_candidates * 100;
-            return rate > topRate ? subject : top;
-        });
-
-        document.getElementById('totalCandidates').textContent = totalCandidates.toLocaleString();
-        document.getElementById('passRate').textContent = '85.4%';
-        document.getElementById('topSubject').textContent = topSubject.subject_name.split(' ')[0];
-        document.getElementById('searchInterest').textContent = stats.data[0]?.search_interest || 'N/A';
-        document.getElementById('genderSplit').textContent = '51.2%';
-        document.getElementById('stemGrowth').textContent = '+3.2%';
-
-        const insightsGrid = document.getElementById('insightsGrid');
-        if (insightsGrid) {
-            insightsGrid.innerHTML = insights.data.map(insight => \`
-                <div class="insight-card">
-                    <h4>\${insight.title}</h4>
-                    <div class="insight-value">\${insight.value}\${insight.insight_type === 'performance' ? '%' : ''}</div>
-                    <p>\${insight.description}</p>
-                </div>
-            \`).join('');
-        }
-    } catch (error) {
-        console.error('Error loading dashboard:', error);
+// Utility function to safely update element content
+function updateElement(id, content) {
+    console.log('Attempting to update element:', id);
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = content;
+        console.log('Successfully updated element ' + id + ' with: ' + content);
+    } else {
+        console.error('Element with id ' + id + ' not found!');
     }
 }
-document.addEventListener('DOMContentLoaded', loadDashboard);`,
+
+// Load dashboard data
+async function loadDashboard() {
+    console.log('Starting dashboard load...');
+
+    // First, check if all elements exist
+    const elements = {
+        totalCandidates: document.getElementById('totalCandidates'),
+        passRate: document.getElementById('passRate'),
+        topSubject: document.getElementById('topSubject'),
+        genderSplit: document.getElementById('genderSplit'),
+        insightsGrid: document.getElementById('insightsGrid')
+    };
+
+    console.log('Elements found:', {
+        totalCandidates: !!elements.totalCandidates,
+        passRate: !!elements.passRate,
+        topSubject: !!elements.topSubject,
+        genderSplit: !!elements.genderSplit,
+        insightsGrid: !!elements.insightsGrid
+    });
+
+    try {
+        // Load insights first
+        console.log('Fetching insights...');
+        const insightsResponse = await fetch('/api/insights');
+        if (!insightsResponse.ok) {
+            throw new Error('Insights API failed: ' + insightsResponse.status);
+        }
+        const insights = await insightsResponse.json();
+        console.log('Insights loaded:', insights.success, 'Items:', insights.data ? insights.data.length : 0);
+
+        // Load performance data
+        console.log('Fetching performance...');
+        const performanceResponse = await fetch('/api/performance');
+        if (!performanceResponse.ok) {
+            throw new Error('Performance API failed: ' + performanceResponse.status);
+        }
+        const performance = await performanceResponse.json();
+        console.log('Performance loaded:', performance.success);
+
+        // Get total candidates from insights
+        const totalCandidatesInsight = insights.data.find(function(insight) {
+            return insight.title.includes('Total DSE Candidates');
+        });
+        const totalCandidates = totalCandidatesInsight ? totalCandidatesInsight.value : 55781;
+        console.log('Total candidates:', totalCandidates);
+
+        // Update dashboard metrics using direct DOM manipulation
+        if (elements.totalCandidates) {
+            elements.totalCandidates.textContent = totalCandidates.toLocaleString();
+            console.log('Updated totalCandidates');
+        }
+
+        if (elements.passRate) {
+            elements.passRate.textContent = '85.4%';
+            console.log('Updated passRate');
+        }
+
+        if (elements.topSubject) {
+            elements.topSubject.textContent = 'Biology';
+            console.log('Updated topSubject');
+        }
+
+        if (elements.genderSplit) {
+            elements.genderSplit.textContent = '51.2%';
+            console.log('Updated genderSplit');
+        }
+
+        // Update insights grid
+        if (elements.insightsGrid && insights && insights.success && insights.data) {
+            console.log('Updating insights grid with', insights.data.length, 'items');
+            var html = '';
+            for (var i = 0; i < insights.data.length; i++) {
+                var insight = insights.data[i];
+                var displayValue = insight.value;
+
+                if (insight.insight_type === 'performance' && insight.value < 100) {
+                    displayValue = insight.value + '%';
+                } else if (insight.insight_type === 'registration' && insight.title.includes('Rate')) {
+                    displayValue = insight.value + '%';
+                } else if (insight.value > 1000) {
+                    displayValue = insight.value.toLocaleString();
+                }
+
+                html += '<div class="insight-card">' +
+                    '<h4>' + insight.title + '</h4>' +
+                    '<div class="insight-value">' + displayValue + '</div>' +
+                    '<p>' + insight.description + '</p>' +
+                    '</div>';
+            }
+            elements.insightsGrid.innerHTML = html;
+            console.log('Insights grid updated');
+        } else {
+            console.error('Failed to load insights or insightsGrid not found');
+            if (elements.insightsGrid) {
+                elements.insightsGrid.innerHTML = '<div class="error">Failed to load insights</div>';
+            }
+        }
+
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        // Show error in insights grid if available
+        if (elements.insightsGrid) {
+            elements.insightsGrid.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+        }
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing dashboard...');
+    loadDashboard();
+});
+
+console.log('JavaScript setup complete');`,
             contentType: 'application/javascript; charset=utf-8'
         },
         'js/performance.js': {
@@ -509,6 +578,58 @@ async function handlePerformance(env: Env): Promise<Response> {
     }
 }
 
+async function handleDataPage(env: Env): Promise<Response> {
+    try {
+
+        const insights = await env.DSE_DB.prepare(
+            'SELECT * FROM dse_insights ORDER BY insight_type, created_at DESC'
+        ).all();
+
+        const html = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>DSE Data Explorer</title>
+            <link rel="stylesheet" href="/css/main.css">
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>🔍 DSE Data Explorer</h1>
+                    <div class="nav-links">
+                        <a href="/" class="nav-link">← Back to Dashboard</a>
+                    </div>
+                </div>
+
+
+
+                <div class="chart-container">
+                    <h2>💡 Analysis Insights</h2>
+                    <div class="insights-grid">
+                        ${insights.results?.map((insight: any) => `
+                            <div class="insight-card">
+                                <h4>${insight.title}</h4>
+                                <div class="insight-value">${insight.value}${insight.insight_type === 'performance' ? '%' : ''}</div>
+                                <p>${insight.description}</p>
+                            </div>
+                        `).join('') || '<p>No insights available</p>'}
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+
+        return new Response(html, {
+            headers: { 'Content-Type': 'text/html' }
+        });
+    } catch (error) {
+        return new Response(`Error loading data: ${error}`, { status: 500 });
+    }
+}
+
 async function handleRegistration(env: Env): Promise<Response> {
     try {
         const registration = await env.DSE_DB.prepare(`
@@ -556,83 +677,5 @@ async function handleSubjects(env: Env): Promise<Response> {
             status: 500,
             headers: { 'Content-Type': 'application/json' }
         });
-    }
-}
-
-async function handleDataPage(env: Env): Promise<Response> {
-    try {
-        const stats = await env.DSE_DB.prepare(
-            'SELECT * FROM dse_statistics ORDER BY date DESC LIMIT 50'
-        ).all();
-
-        const insights = await env.DSE_DB.prepare(
-            'SELECT * FROM dse_insights ORDER BY insight_type, created_at DESC'
-        ).all();
-
-        const html = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>DSE Data Explorer</title>
-            <link rel="stylesheet" href="/css/main.css">
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>🔍 DSE Data Explorer</h1>
-                    <div class="nav-links">
-                        <a href="/" class="nav-link">← Back to Dashboard</a>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h2>📊 Recent Statistics</h2>
-                    <p>Records: ${stats.results.length}</p>
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="background: #1e40af; color: white;">
-                                    <th style="padding: 12px; text-align: left;">Date</th>
-                                    <th style="padding: 12px; text-align: left;">Search Interest</th>
-                                    <th style="padding: 12px; text-align: left;">Created At</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${stats.results?.map((stat: any) => `
-                                    <tr style="border-bottom: 1px solid #ddd;">
-                                        <td style="padding: 12px;">${stat.date}</td>
-                                        <td style="padding: 12px;">${stat.search_interest}</td>
-                                        <td style="padding: 12px;">${stat.created_at}</td>
-                                    </tr>
-                                `).join('') || '<tr><td colspan="3" style="padding: 20px; text-align: center;">No data available</td></tr>'}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h2>💡 Analysis Insights</h2>
-                    <div class="insights-grid">
-                        ${insights.results?.map((insight: any) => `
-                            <div class="insight-card">
-                                <h4>${insight.title}</h4>
-                                <div class="insight-value">${insight.value}${insight.insight_type === 'performance' ? '%' : ''}</div>
-                                <p>${insight.description}</p>
-                            </div>
-                        `).join('') || '<p>No insights available</p>'}
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>
-        `;
-
-        return new Response(html, {
-            headers: { 'Content-Type': 'text/html' }
-        });
-    } catch (error) {
-        return new Response(`Error loading data: ${error}`, { status: 500 });
     }
 }

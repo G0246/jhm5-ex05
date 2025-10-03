@@ -30,7 +30,7 @@ INSERT INTO dse_registration (year, category, gender, subject_code, subject_name
 (2025, 'day_school', 'male', 'CORE', 'Core Subjects', 22065, 21844, 99.0),
 (2025, 'day_school', 'female', 'CORE', 'Core Subjects', 23068, 22837, 99.0),
 
--- Private Candidates (10,303 total private candidates)
+-- Private Candidates (10,303 total private candidates)  
 (2025, 'private', 'male', 'CORE', 'Core Subjects', 5252, 5010, 95.4),
 (2025, 'private', 'female', 'CORE', 'Core Subjects', 5051, 4832, 95.7),
 

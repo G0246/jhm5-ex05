@@ -10,7 +10,7 @@
     <div class="container">
         <div class="header">
             <h1>🎓 DSE Analysis Dashboard</h1>
-            <p>Hong Kong Diploma of Secondary Education - Search Interest Analytics</p>
+            <p>Hong Kong Diploma of Secondary Education - Performance & Statistics</p>
         </div>
 
         <div class="nav-links">
@@ -18,14 +18,13 @@
             <a href="/performance" class="nav-link">Performance</a>
             <a href="/subjects" class="nav-link">Subjects</a>
             <a href="/data" class="nav-link">Raw Data</a>
-            <a href="/api/statistics" class="nav-link">API Stats</a>
         </div>
 
         <div class="dashboard">
             <div class="card">
                 <h3>🎓 Total DSE Candidates</h3>
                 <div class="metric" id="totalCandidates">Loading...</div>
-                <p>2025 registered candidates</p>
+                <p>2025 registered candidates (all categories)</p>
             </div>
 
             <div class="card">
@@ -41,21 +40,9 @@
             </div>
 
             <div class="card">
-                <h3>📈 Search Interest</h3>
-                <div class="metric" id="searchInterest">Loading...</div>
-                <p>Current trend analysis</p>
-            </div>
-
-            <div class="card">
                 <h3>👥 Gender Distribution</h3>
                 <div class="metric" id="genderSplit">Loading...</div>
                 <p>Female participation rate</p>
-            </div>
-
-            <div class="card">
-                <h3>🔬 STEM Performance</h3>
-                <div class="metric" id="stemGrowth">Loading...</div>
-                <p>Science subjects growth</p>
             </div>
         </div>
 
@@ -63,16 +50,6 @@
             <h3>📋 Key Insights</h3>
             <div class="insights-grid" id="insightsGrid">
                 <div class="loading">Loading insights...</div>
-            </div>
-        </div>
-
-        <div class="chart-container">
-            <h3>📈 Search Interest Trends</h3>
-            <div id="trendChart">
-                <p style="text-align: center; padding: 20px; color: #666;">
-                    Chart visualization would be displayed here.<br>
-                    Data shows DSE search interest typically peaks during exam season (March-April).
-                </p>
             </div>
         </div>
     </div>
