@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSE Analysis Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 DSE Analysis Dashboard</h1>
+            <p>Hong Kong Diploma of Secondary Education - Search Interest Analytics</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="nav-link">Dashboard</a>
+            <a href="/performance" class="nav-link">Performance</a>
+            <a href="/subjects" class="nav-link">Subjects</a>
+            <a href="/data" class="nav-link">Raw Data</a>
+            <a href="/api/statistics" class="nav-link">API Stats</a>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>🎓 Total DSE Candidates</h3>
+                <div class="metric" id="totalCandidates">Loading...</div>
+                <p>2025 registered candidates</p>
+            </div>
+
+            <div class="card">
+                <h3>📊 Overall Pass Rate</h3>
+                <div class="metric" id="passRate">Loading...</div>
+                <p>Level 2 and above achievement</p>
+            </div>
+
+            <div class="card">
+                <h3>⭐ Top Performing Subject</h3>
+                <div class="metric" id="topSubject">Loading...</div>
+                <p>Highest distinction rate</p>
+            </div>
+
+            <div class="card">
+                <h3>📈 Search Interest</h3>
+                <div class="metric" id="searchInterest">Loading...</div>
+                <p>Current trend analysis</p>
+            </div>
+
+            <div class="card">
+                <h3>👥 Gender Distribution</h3>
+                <div class="metric" id="genderSplit">Loading...</div>
+                <p>Female participation rate</p>
+            </div>
+
+            <div class="card">
+                <h3>🔬 STEM Performance</h3>
+                <div class="metric" id="stemGrowth">Loading...</div>
+                <p>Science subjects growth</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3>📋 Key Insights</h3>
+            <div class="insights-grid" id="insightsGrid">
+                <div class="loading">Loading insights...</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h3>📈 Search Interest Trends</h3>
+            <div id="trendChart">
+                <p style="text-align: center; padding: 20px; color: #666;">
+                    Chart visualization would be displayed here.<br>
+                    Data shows DSE search interest typically peaks during exam season (March-April).
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Powered by Cloudflare Workers & D1 Database | DSE Analysis © 2025</p>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

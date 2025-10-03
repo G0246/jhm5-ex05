@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSE Performance Analysis</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DSE Performance Analysis 2025</h1>
+            <p>Comprehensive analysis of student performance and grade distribution</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="nav-link">Dashboard</a>
+            <a href="/performance" class="nav-link">Performance</a>
+            <a href="/subjects" class="nav-link">Subjects</a>
+            <a href="/data" class="nav-link">Raw Data</a>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>🎯 Total DSE Candidates</h3>
+                <div class="metric">48,542</div>
+                <p>2025 DSE candidates</p>
+            </div>
+            <div class="card">
+                <h3>⭐ Top Subject</h3>
+                <div class="metric" id="topSubject">Loading...</div>
+                <p id="topSubjectRate">Loading...</p>
+            </div>
+            <div class="card">
+                <h3>📈 Average Score</h3>
+                <div class="metric" id="averageScore">Loading...</div>
+                <p>Overall mean performance</p>
+            </div>
+        </div>
+
+        <div class="performance-grid" id="performanceGrid">
+            <div class="loading">Loading performance data...</div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/performance.js"></script>
+</body>
+</html>
