@@ -9,7 +9,17 @@
 	"compatibility_date": "2025-10-03",
 	"observability": {
 		"enabled": true
-	}
+	},
+	/**
+	 * D1 Database Configuration
+	 */
+	"d1_databases": [
+		{
+			"binding": "DSE_DB",
+			"database_name": "dse-analysis-db",
+			"database_id": "67b00054-1c65-450e-882d-be2a3ab73d93"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
