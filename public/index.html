@@ -1,63 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSE Analysis Dashboard</title>
+    <title>HKDSE Analytics 2024 - University Admission Intelligence</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎓 DSE Analysis Dashboard</h1>
-            <p>Hong Kong Diploma of Secondary Education - Performance & Statistics</p>
+    <!-- Navigation -->
+    <nav class="modern-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🎓</span>
+                <h1 class="brand-title">HKDSE Analytics 2024</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Dashboard</a></li>
+                <li><a href="/performance.html" class="nav-link">Performance</a></li>
+                <li><a href="/university.html" class="nav-link">University Readiness</a></li>
+                <li><a href="/insights.html" class="nav-link">Insights</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <div class="nav-links">
-            <a href="/" class="nav-link">Dashboard</a>
-            <a href="/performance" class="nav-link">Performance</a>
-            <a href="/subjects" class="nav-link">Subjects</a>
-            <a href="/data" class="nav-link">Raw Data</a>
+    <!-- Hero Dashboard -->
+    <section class="hero-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Hong Kong DSE 2024 Analytics</h1>
+                <p class="dashboard-subtitle">University Admission Intelligence & Performance Analytics</p>
+            </div>
+
+            <!-- Hero Statistics Cards -->
+            <div class="hero-stats-grid" id="hero-stats">
+                <div class="hero-card loading">
+                    <div class="hero-card-content">
+                        <div class="hero-icon">📊</div>
+                        <div class="hero-value">Loading...</div>
+                        <div class="hero-label">Total Candidates</div>
+                    </div>
+                </div>
+                <div class="hero-card loading">
+                    <div class="hero-card-content">
+                        <div class="hero-icon">🎓</div>
+                        <div class="hero-value">Loading...</div>
+                        <div class="hero-label">University Eligible</div>
+                    </div>
+                </div>
+                <div class="hero-card loading">
+                    <div class="hero-card-content">
+                        <div class="hero-icon">⭐</div>
+                        <div class="hero-value">Loading...</div>
+                        <div class="hero-label">Elite Performers</div>
+                    </div>
+                </div>
+                <div class="hero-card loading">
+                    <div class="hero-card-content">
+                        <div class="hero-icon">👥</div>
+                        <div class="hero-value">Loading...</div>
+                        <div class="hero-label">Gender Balance</div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="dashboard">
-            <div class="card">
-                <h3>🎓 Total DSE Candidates</h3>
-                <div class="metric" id="totalCandidates">Loading...</div>
-                <p>2025 registered candidates (all categories)</p>
+    <!-- Analytics Dashboard -->
+    <section class="analytics-dashboard">
+        <div class="container">
+            <!-- Key Findings Section -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔍</span>
+                    Key Findings & Insights
+                </h2>
+                <div class="findings-grid" id="key-findings">
+                    <div class="finding-card loading">
+                        <h3>Loading insights...</h3>
+                        <p>Analyzing performance patterns...</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>📊 Overall Pass Rate</h3>
-                <div class="metric" id="passRate">Loading...</div>
-                <p>Level 2 and above achievement</p>
+            <!-- Subject Performance Matrix -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📚</span>
+                    Subject Performance Matrix
+                </h2>
+                <div class="performance-matrix" id="subject-performance">
+                    <div class="matrix-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading subject performance data...</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>⭐ Top Performing Subject</h3>
-                <div class="metric" id="topSubject">Loading...</div>
-                <p>Highest distinction rate</p>
+            <!-- University Readiness Chart -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🏛️</span>
+                    University Admission Competitiveness
+                </h2>
+                <div class="chart-container">
+                    <canvas id="universityChart" width="800" height="400"></canvas>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>👥 Gender Distribution</h3>
-                <div class="metric" id="genderSplit">Loading...</div>
-                <p>Female participation rate</p>
+            <!-- Analytics Overview -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">�</span>
+                    Performance Analytics Overview
+                </h2>
+                <div class="analytics-grid" id="analytics-overview">
+                    <div class="analytics-card loading">
+                        <h3>Subject Difficulty Ranking</h3>
+                        <div class="analytics-content">Loading...</div>
+                    </div>
+                    <div class="analytics-card loading">
+                        <h3>Gender Performance Gaps</h3>
+                        <div class="analytics-content">Loading...</div>
+                    </div>
+                    <div class="analytics-card loading">
+                        <h3>Achievement Distribution</h3>
+                        <div class="analytics-content">Loading...</div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="chart-container">
-            <h3>📋 Key Insights</h3>
-            <div class="insights-grid" id="insightsGrid">
-                <div class="loading">Loading insights...</div>
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HKDSE Analytics 2024</h3>
+                    <p>Official data from Hong Kong Examinations and Assessment Authority</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Data Sources</h4>
+                    <ul>
+                        <li>HKDSE Results Statistics Tables 3A-3M</li>
+                        <li>Cross-tabulation Analysis</li>
+                        <li>University Admission Requirements</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Analytics Features</h4>
+                    <ul>
+                        <li>University Readiness Intelligence</li>
+                        <li>Subject Performance Analysis</li>
+                        <li>Demographic Gap Analysis</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HKDSE Analytics Platform. Educational intelligence for informed decisions.</p>
             </div>
         </div>
-    </div>
-
-    <div class="footer">
-        <p>Powered by Cloudflare Workers & D1 Database</p>
-    </div>
+    </footer>
 
     <script src="/js/main.js"></script>
 </body>
+
 </html>

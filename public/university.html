@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subject Performance - HKDSE Analytics 2024</title>
+    <title>University Readiness - HKDSE Analytics 2024</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,75 +22,89 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link">Dashboard</a></li>
-                <li><a href="/performance.html" class="nav-link active">Performance</a></li>
-                <li><a href="/university.html" class="nav-link">University Readiness</a></li>
+                <li><a href="/performance.html" class="nav-link">Performance</a></li>
+                <li><a href="/university.html" class="nav-link active">University Readiness</a></li>
                 <li><a href="/insights.html" class="nav-link">Insights</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Performance Hero Section -->
+    <!-- University Readiness Hero Section -->
     <section class="hero-dashboard">
         <div class="container">
             <div class="dashboard-header">
-                <h1 class="dashboard-title">Subject Performance Analysis</h1>
-                <p class="dashboard-subtitle">Comprehensive analysis of HKDSE 2024 subject performance and difficulty indices</p>
+                <h1 class="dashboard-title">University Readiness Analysis</h1>
+                <p class="dashboard-subtitle">Comprehensive evaluation of HKDSE 2024 candidates' readiness for higher education based on core subject performance</p>
             </div>
         </div>
     </section>
 
-    <!-- Performance Analysis -->
+    <!-- University Readiness Analytics -->
     <section class="analytics-dashboard">
         <div class="container">
-            <!-- Performance Overview -->
-            <div class="dashboard-section">
-                <h2 class="section-title">
-                    <span class="section-icon">📊</span>
-                    Subject Performance Overview
-                </h2>
-                <div class="performance-overview-grid" id="performance-overview">
-                    <div class="loading-state">
-                        <div class="loading-spinner"></div>
-                        <p>Loading performance overview...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Detailed Subject Analysis -->
-            <div class="dashboard-section">
-                <h2 class="section-title">
-                    <span class="section-icon">📚</span>
-                    Detailed Subject Analysis
-                </h2>
-                <div class="subject-analysis-grid" id="subject-analysis">
-                    <div class="loading-state">
-                        <div class="loading-spinner"></div>
-                        <p>Loading detailed analysis...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Performance Comparison Chart -->
-            <div class="dashboard-section">
-                <h2 class="section-title">
-                    <span class="section-icon">📈</span>
-                    Performance Comparison
-                </h2>
-                <div class="chart-container">
-                    <canvas id="performanceChart" width="800" height="400"></canvas>
-                </div>
-            </div>
-
-            <!-- Difficulty Analysis -->
+            <!-- Readiness Overview -->
             <div class="dashboard-section">
                 <h2 class="section-title">
                     <span class="section-icon">🎯</span>
-                    Difficulty Analysis
+                    University Readiness Overview
                 </h2>
-                <div class="difficulty-analysis" id="difficulty-analysis">
+                <div class="readiness-overview-grid" id="readiness-overview">
                     <div class="loading-state">
                         <div class="loading-spinner"></div>
-                        <p>Loading difficulty analysis...</p>
+                        <p>Loading readiness overview...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Readiness Distribution Chart -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Readiness Distribution
+                </h2>
+                <div class="chart-container">
+                    <canvas id="readinessChart" width="800" height="400"></canvas>
+                </div>
+            </div>
+
+            <!-- Grade Point Analysis -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📈</span>
+                    Grade Point Analysis
+                </h2>
+                <div class="grade-point-analysis" id="grade-point-analysis">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading grade point analysis...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- University Admission Insights -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🏛️</span>
+                    University Admission Insights
+                </h2>
+                <div class="admission-insights" id="admission-insights">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading admission insights...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Subject Requirements -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📚</span>
+                    Core Subject Requirements
+                </h2>
+                <div class="core-requirements" id="core-requirements">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading core requirements analysis...</p>
                     </div>
                 </div>
             </div>
@@ -106,21 +120,21 @@
                     <p>Official data from Hong Kong Examinations and Assessment Authority</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Performance Metrics</h4>
+                    <h4>University Readiness</h4>
                     <ul>
-                        <li>Mean Score Analysis</li>
-                        <li>Difficulty Index Calculation</li>
-                        <li>Pass Rate Comparisons</li>
-                        <li>Distinction Rate Analysis</li>
+                        <li>Core Subject Performance</li>
+                        <li>Grade Point Calculations</li>
+                        <li>Admission Requirements</li>
+                        <li>Success Indicators</li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Subject Categories</h4>
+                    <h4>Analysis Categories</h4>
                     <ul>
-                        <li>Core Subjects</li>
-                        <li>Extended Mathematics</li>
-                        <li>Category A Electives</li>
-                        <li>Category B/C Subjects</li>
+                        <li>Highly Competitive Programs</li>
+                        <li>Standard University Entry</li>
+                        <li>Foundation Programs</li>
+                        <li>Alternative Pathways</li>
                     </ul>
                 </div>
             </div>
@@ -131,7 +145,7 @@
     </footer>
 
     <script src="/js/main.js"></script>
-    <script src="/js/performance.js"></script>
+    <script src="/js/university.js"></script>
 </body>
 
 </html>

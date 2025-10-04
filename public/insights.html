@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Insights - HKDSE Analytics 2024</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="modern-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🎓</span>
+                <h1 class="brand-title">HKDSE Analytics 2024</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Dashboard</a></li>
+                <li><a href="/performance.html" class="nav-link">Performance</a></li>
+                <li><a href="/university.html" class="nav-link">University Readiness</a></li>
+                <li><a href="/insights.html" class="nav-link active">Insights</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Insights Hero Section -->
+    <section class="hero-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Educational Insights & Trends</h1>
+                <p class="dashboard-subtitle">Deep analytical insights and trends from HKDSE 2024 examination data to inform educational strategies and policy decisions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Insights Analytics -->
+    <section class="analytics-dashboard">
+        <div class="container">
+            <!-- Key Insights Overview -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">💡</span>
+                    Key Educational Insights
+                </h2>
+                <div class="insights-overview-grid" id="insights-overview">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading key insights...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trend Analysis -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📈</span>
+                    Performance Trends & Patterns
+                </h2>
+                <div class="trend-analysis" id="trend-analysis">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading trend analysis...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gender Analysis -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">👥</span>
+                    Gender Performance Analysis
+                </h2>
+                <div class="gender-analysis-container">
+                    <div class="chart-container">
+                        <canvas id="genderChart" width="800" height="400"></canvas>
+                    </div>
+                    <div class="gender-insights" id="gender-insights">
+                        <div class="loading-state">
+                            <div class="loading-spinner"></div>
+                            <p>Loading gender analysis...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Difficulty Ranking -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🎯</span>
+                    Subject Difficulty Ranking
+                </h2>
+                <div class="difficulty-ranking" id="difficulty-ranking">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading difficulty ranking...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy Recommendations -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📋</span>
+                    Policy Recommendations
+                </h2>
+                <div class="policy-recommendations" id="policy-recommendations">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading policy recommendations...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistical Summary -->
+            <div class="dashboard-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Statistical Summary
+                </h2>
+                <div class="statistical-summary" id="statistical-summary">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading statistical summary...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HKDSE Analytics 2024</h3>
+                    <p>Official data from Hong Kong Examinations and Assessment Authority</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Educational Insights</h4>
+                    <ul>
+                        <li>Performance Trend Analysis</li>
+                        <li>Gender Performance Gaps</li>
+                        <li>Subject Difficulty Assessment</li>
+                        <li>Policy Impact Evaluation</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Research Applications</h4>
+                    <ul>
+                        <li>Educational Policy Research</li>
+                        <li>Curriculum Development</li>
+                        <li>Teaching Methodology</li>
+                        <li>Student Support Services</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HKDSE Analytics Platform. Educational intelligence for informed decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/insights.js"></script>
+</body>
+
+</html>
