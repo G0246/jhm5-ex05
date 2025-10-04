@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSE Raw Data</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DSE Raw Data</h1>
+            <p>Complete dataset from the DSE Analysis System</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="nav-link">Dashboard</a>
+            <a href="/performance" class="nav-link">Performance</a>
+            <a href="/subjects" class="nav-link">Subjects</a>
+            <a href="/data" class="nav-link active">Raw Data</a>
+        </div>
+
+        <div class="data-section">
+            <h3>📈 Performance Data</h3>
+            <div class="data-container" id="performanceData">
+                <div class="loading">Loading performance data...</div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <h3>📝 Registration Data</h3>
+            <div class="data-container" id="registrationData">
+                <div class="loading">Loading registration data...</div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <h3>📚 Subject Trends</h3>
+            <div class="data-container" id="subjectsData">
+                <div class="loading">Loading subjects data...</div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <h3>💡 Key Insights</h3>
+            <div class="data-container" id="insightsData">
+                <div class="loading">Loading insights data...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Powered by Cloudflare Workers & D1 Database</p>
+    </div>
+
+    <script>
+        // Load all raw data
+        async function loadRawData() {
+            try {
+                const response = await fetch('/api/data');
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error('Failed to load raw data');
+                }
+
+                const data = result.data;
+
+                // Display performance data
+                document.getElementById('performanceData').innerHTML =
+                    '<pre>' + JSON.stringify(data.performance, null, 2) + '</pre>';
+
+                // Display registration data
+                document.getElementById('registrationData').innerHTML =
+                    '<pre>' + JSON.stringify(data.registration, null, 2) + '</pre>';
+
+                // Display subjects data
+                document.getElementById('subjectsData').innerHTML =
+                    '<pre>' + JSON.stringify(data.subjects, null, 2) + '</pre>';
+
+                // Display insights data
+                document.getElementById('insightsData').innerHTML =
+                    '<pre>' + JSON.stringify(data.insights, null, 2) + '</pre>';
+
+            } catch (error) {
+                console.error('Error loading raw data:', error);
+                document.querySelectorAll('.data-container').forEach(container => {
+                    container.innerHTML = '<div class="error">Error loading data: ' + error.message + '</div>';
+                });
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', loadRawData);
+    </script>
+</body>
+</html>

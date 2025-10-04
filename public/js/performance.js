@@ -14,21 +14,6 @@ async function loadPerformanceData() {
 
         const performance = data.data;
 
-        // Calculate top performers
-        const topPerformers = performance.map(subject => ({
-            ...subject,
-            distinction_rate: ((subject.level_5_star_star + subject.level_5_star + subject.level_5) * 100 / subject.total_candidates).toFixed(1)
-        })).sort((a, b) => b.distinction_rate - a.distinction_rate);
-
-        // Update dashboard cards
-        if (topPerformers.length > 0) {
-            DSEAnalytics.updateElement('topSubject', topPerformers[0].subject_name);
-            DSEAnalytics.updateElement('topSubjectRate', `${topPerformers[0].distinction_rate}% distinction rate`);
-        }
-
-        const averageScore = (performance.reduce((sum, p) => sum + p.mean_score, 0) / performance.length).toFixed(1);
-        DSEAnalytics.updateElement('averageScore', averageScore);
-
         // Render performance grid
         renderPerformanceGrid(performance);
 

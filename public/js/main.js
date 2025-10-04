@@ -121,10 +121,32 @@ async function loadDashboard() {
     }
 }
 
+// Utility function to safely update element content
+function updateElement(id, content) {
+    console.log('Attempting to update element:', id);
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = content;
+        console.log('Successfully updated element ' + id + ' with: ' + content);
+    } else {
+        console.error('Element with id ' + id + ' not found!');
+    }
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing dashboard...');
-    loadDashboard();
+
+    // Only load dashboard if we're on the main page
+    if (document.getElementById('insightsGrid')) {
+        loadDashboard();
+    }
 });
+
+// Export functions for use in other scripts
+window.DSEAnalytics = {
+    loadDashboard: loadDashboard,
+    updateElement: updateElement
+};
 
 console.log('JavaScript setup complete');
